@@ -14,8 +14,8 @@ import (
 )
 
 func main() {
-	//1 step count
-	//2 step width
+	//1 step count：20
+	//2 step width：time.Second
 	t := timer.New(20, time.Second)
 	t.After(Second * 5)
 }
