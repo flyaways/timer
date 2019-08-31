@@ -2,7 +2,7 @@
 
 ## Separated from https://github.com/TarsCloud/TarsGo/tree/master/tars/util/rtimer
 
-> for quic learn and test,and maybe modify it later.
+> for setDeadline and timeout.
 
 > Thanks a million to https://github.com/TarsCloud/TarsGo/tree/master/tars/util/rtimer
 
