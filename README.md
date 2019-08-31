@@ -10,6 +10,8 @@
 package main
 
 import (
+	"fmt"
+	"time"
 	"github.com/flyaways/timer"
 )
 
@@ -17,7 +19,19 @@ func main() {
 	//1 step count：20
 	//2 step width：time.Second
 	t := timer.New(20, time.Second)
-	t.After(Second * 5)
+	done := make(chan struct{})
+	go func() {
+		//do something
+		time.Sleep(time.Second)
+		done <- struct{}{}
+	}()
+
+	select {
+	case <-t.After(time.Second * 5):
+		fmt.Println("after", time.Now().Format(time.RFC3339Nano))
+	case <-done:
+		fmt.Println("done", time.Now().Format(time.RFC3339Nano))
+	}
 }
 ```
 
