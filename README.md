@@ -10,8 +10,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/flyaways/timer"
 )
 
