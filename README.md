@@ -21,7 +21,10 @@ func main() {
 
 > Benchmark to FlyawaysTimer, TarsGoTimeWheel and OfficalTimer.
 
+
 ```sh
+go test -count=1 -benchtime 3s -benchmem . -bench .
+
 goos: darwin
 goarch: amd64
 pkg: github.com/flyaways/timer
