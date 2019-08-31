@@ -18,3 +18,14 @@ func main() {
 	t.After(Second * 5)
 }
 ```
+
+> Benchmark to FlyawaysTimer, TarsGoTimeWheel and OfficalTimer.
+
+```sh
+goos: darwin
+goarch: amd64
+pkg: github.com/flyaways/timer
+BenchmarkFlyawaysTimer-4   	200000000	        27.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkTarsGoTimer-4     	 50000000	        78.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkOfficalTimer-4    	 10000000	         396 ns/op	     212 B/op	       3 allocs/op
+```
