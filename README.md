@@ -2,7 +2,7 @@
 
 ## Separated from https://github.com/TarsCloud/TarsGo/tree/master/tars/util/rtimer
 
-> for setDeadline and timeout.
+> for setDeadline and timeout sence ，but performance is better than TarsGo-rtimer
 
 > Thanks a million to https://github.com/TarsCloud/TarsGo/tree/master/tars/util/rtimer
 
