@@ -7,6 +7,8 @@ import (
 
 func ExampleTimer() {
 	t := New(20, time.Second)
+	defer t.Stop()
+
 	done := make(chan struct{})
 	go func() {
 		//do something

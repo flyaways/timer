@@ -8,25 +8,25 @@ import (
 type Wheel struct {
 	ticker  *time.Ticker
 	wheels  []chan struct{}
-	step    time.Duration
-	count   int
+	gear    time.Duration
+	number  int
 	current int
 	lock    sync.RWMutex
 }
 
-//NewWheel new timewheel with step and count.
-func NewWheel(count int, step time.Duration) *Wheel {
+//NewWheel new timewheel with gear and number.
+func NewWheel(number int, gear time.Duration) *Wheel {
 	w := &Wheel{
-		step:   step,
-		count:  count + 1,
-		wheels: make([]chan struct{}, count+1),
+		gear:   gear,
+		number: number + 1,
+		wheels: make([]chan struct{}, number+1),
 	}
 
-	for i := 0; i < count+1; i++ {
+	for i := 0; i < number+1; i++ {
 		w.wheels[i] = make(chan struct{})
 	}
 
-	w.ticker = time.NewTicker(step)
+	w.ticker = time.NewTicker(gear)
 
 	go w.run()
 
@@ -40,10 +40,11 @@ func (w *Wheel) Stop() {
 
 //After like time.After
 func (w *Wheel) After(timeout time.Duration) <-chan struct{} {
-	index := (int(timeout/w.step) + w.current) % w.count
 	w.lock.RLock()
+	index := (int(timeout/w.gear) + w.current) % w.number
 	c := w.wheels[index]
 	w.lock.RUnlock()
+
 	return c
 }
 
@@ -52,8 +53,9 @@ func (w *Wheel) run() {
 		w.lock.Lock()
 		oldestC := w.wheels[w.current]
 		w.wheels[w.current] = make(chan struct{})
-		w.current = (w.current + 1) % w.count
+		w.current = (w.current + 1) % w.number
 		w.lock.Unlock()
+
 		close(oldestC)
 	}
 }

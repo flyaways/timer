@@ -16,9 +16,9 @@ import (
 )
 
 func main() {
-	//1 step count：20
-	//2 step width：time.Second
 	t := timer.New(20, time.Second)
+	defer t.Stop()
+
 	done := make(chan struct{})
 	go func() {
 		//do something
@@ -39,12 +39,16 @@ func main() {
 
 
 ```sh
-go test -count=1 -benchtime 3s -benchmem . -bench .
-
+go test -count=1 -benchtime 5s -benchmem . -bench .
+0.9948495475
 goos: darwin
 goarch: amd64
 pkg: github.com/flyaways/timer
-BenchmarkFlyawaysTimer-4   	200000000	        27.9 ns/op	       0 B/op	       0 allocs/op
-BenchmarkTarsGoTimer-4     	 50000000	        78.1 ns/op	       0 B/op	       0 allocs/op
-BenchmarkOfficalTimer-4    	 10000000	         396 ns/op	     212 B/op	       3 allocs/op
+cpu: Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz
+BenchmarkFlyawaysTimer-4        239080164               25.83 ns/op            0 B/op          0 allocs/op
+BenchmarkTarsGoTimer-4          144200496               43.22 ns/op            0 B/op          0 allocs/op
+BenchmarkOfficalTimer-4          9556473               671.0 ns/op           206 B/op          3 allocs/op
+BenchmarkRussellLuoTimer-4      15525009               463.3 ns/op           167 B/op          2 allocs/op
+PASS
+ok      github.com/flyaways/timer       44.648s
 ```

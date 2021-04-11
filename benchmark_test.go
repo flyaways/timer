@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/RussellLuo/timingwheel"
 	"github.com/TarsCloud/TarsGo/tars/util/rtimer"
 )
 
@@ -26,5 +27,16 @@ func BenchmarkTarsGoTimer(b *testing.B) {
 func BenchmarkOfficalTimer(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		time.After(time.Millisecond * 100)
+	}
+}
+
+//BenchmarkRussellLuoTimer benchmark timewheel.
+func BenchmarkRussellLuoTimer(b *testing.B) {
+	tw := timingwheel.NewTimingWheel(time.Millisecond*5, 20)
+	tw.Start()
+	defer tw.Stop()
+
+	for i := 0; i < b.N; i++ {
+		tw.AfterFunc(time.Millisecond*100, func() {})
 	}
 }
