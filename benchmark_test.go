@@ -11,23 +11,29 @@ import (
 //BenchmarkTimeWheel benchmarks timewheel.
 func BenchmarkFlyawaysTimer(b *testing.B) {
 	t := New(20, time.Millisecond*5)
-	for i := 0; i < b.N; i++ {
-		t.After(time.Millisecond * 100)
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			t.After(time.Millisecond * 100)
+		}
+	})
 }
 
 //BenchmarkTimeWheel benchmarks timewheel.
 func BenchmarkTarsGoTimer(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		rtimer.After(time.Millisecond * 100)
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			rtimer.After(time.Millisecond * 100)
+		}
+	})
 }
 
 //BenchmarkTimeBase benchmark origin timer.
 func BenchmarkOfficalTimer(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		time.After(time.Millisecond * 100)
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			time.After(time.Millisecond * 100)
+		}
+	})
 }
 
 //BenchmarkRussellLuoTimer benchmark timewheel.
@@ -36,7 +42,9 @@ func BenchmarkRussellLuoTimer(b *testing.B) {
 	tw.Start()
 	defer tw.Stop()
 
-	for i := 0; i < b.N; i++ {
-		tw.AfterFunc(time.Millisecond*100, func() {})
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			tw.AfterFunc(time.Millisecond*100, func() {})
+		}
+	})
 }

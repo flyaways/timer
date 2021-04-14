@@ -40,15 +40,15 @@ func main() {
 
 ```sh
 go test -count=1 -benchtime 5s -benchmem . -bench .
-0.9948495475
+0.9948804265
 goos: darwin
 goarch: amd64
 pkg: github.com/flyaways/timer
 cpu: Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz
-BenchmarkFlyawaysTimer-4        239080164               25.83 ns/op            0 B/op          0 allocs/op
-BenchmarkTarsGoTimer-4          144200496               43.22 ns/op            0 B/op          0 allocs/op
-BenchmarkOfficalTimer-4          9556473               671.0 ns/op           206 B/op          3 allocs/op
-BenchmarkRussellLuoTimer-4      15525009               463.3 ns/op           167 B/op          2 allocs/op
+BenchmarkFlyawaysTimer-4        174450506               53.58 ns/op            0 B/op          0 allocs/op
+BenchmarkTarsGoTimer-4          79953462                74.30 ns/op            0 B/op          0 allocs/op
+BenchmarkOfficalTimer-4         12491235               519.6 ns/op           201 B/op          3 allocs/op
+BenchmarkRussellLuoTimer-4      13017769               514.1 ns/op           164 B/op          2 allocs/op
 PASS
-ok      github.com/flyaways/timer       44.648s
+ok      github.com/flyaways/timer       43.342s
 ```
