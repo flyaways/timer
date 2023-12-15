@@ -1,12 +1,14 @@
-package timer
+package timer_test
 
 import (
 	"fmt"
 	"time"
+
+	timer "github.com/flyaways/timer"
 )
 
 func ExampleTimer() {
-	t := New(20, time.Second)
+	t := timer.New(20, time.Second)
 	defer t.Stop()
 
 	done := make(chan struct{})

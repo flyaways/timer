@@ -1,4 +1,4 @@
-package timer
+package timer_test
 
 import (
 	"testing"
@@ -6,45 +6,52 @@ import (
 
 	"github.com/RussellLuo/timingwheel"
 	"github.com/TarsCloud/TarsGo/tars/util/rtimer"
+	timer "github.com/flyaways/timer"
 )
 
-//BenchmarkTimeWheel benchmarks timewheel.
+const (
+	gearSize      time.Duration = time.Millisecond * 5
+	afterDuration time.Duration = time.Millisecond * 100
+	wheelNum      int           = 20
+)
+
+// BenchmarkTimeWheel benchmarks timewheel.
 func BenchmarkFlyawaysTimer(b *testing.B) {
-	t := New(20, time.Millisecond*5)
+	t := timer.New(wheelNum, gearSize)
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			t.After(time.Millisecond * 100)
+			t.After(afterDuration)
 		}
 	})
 }
 
-//BenchmarkTimeWheel benchmarks timewheel.
+// BenchmarkTimeWheel benchmarks timewheel.
 func BenchmarkTarsGoTimer(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			rtimer.After(time.Millisecond * 100)
+			rtimer.After(afterDuration)
 		}
 	})
 }
 
-//BenchmarkTimeBase benchmark origin timer.
+// BenchmarkTimeBase benchmark origin timer.
 func BenchmarkOfficalTimer(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			time.After(time.Millisecond * 100)
+			time.After(afterDuration)
 		}
 	})
 }
 
-//BenchmarkRussellLuoTimer benchmark timewheel.
+// BenchmarkRussellLuoTimer benchmark timewheel.
 func BenchmarkRussellLuoTimer(b *testing.B) {
-	tw := timingwheel.NewTimingWheel(time.Millisecond*5, 20)
+	tw := timingwheel.NewTimingWheel(gearSize, int64(wheelNum))
 	tw.Start()
 	defer tw.Stop()
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			tw.AfterFunc(time.Millisecond*100, func() {})
+			tw.AfterFunc(afterDuration, func() {})
 		}
 	})
 }

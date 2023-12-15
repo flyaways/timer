@@ -1,8 +1,8 @@
 module github.com/flyaways/timer
 
-go 1.12
+go 1.21
 
 require (
-	github.com/RussellLuo/timingwheel v0.0.0-20201029015908-64de9d088c74
-	github.com/TarsCloud/TarsGo v1.1.6
+	github.com/RussellLuo/timingwheel v0.0.0-20220218152713-54845bda3108
+	github.com/TarsCloud/TarsGo v1.4.4
 )
